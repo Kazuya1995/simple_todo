@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TODOリスト</title>
+</head>
+<body>
+    <h1>TODOリスト</h1>
+    <a href="{% url 'add_task' %}">タスク追加</a>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <strong>{{ task.title }}</strong> - {{ task.description }}
+                {% if task.completed %}
+                    <span style="color: green;">[完了]</span>
+                {% else %}
+                    <a href="{% url 'complete_task' task.id %}">完了にする</a>
+                {% endif %}
+                <a href="{% url 'delete_task' task.id %}" style="color: red;">削除</a>
+            </li>
+        {% empty %}
+            <li>タスクはありません。</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
